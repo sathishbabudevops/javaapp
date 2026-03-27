@@ -6,22 +6,13 @@ env:
   GLOBAL_ENV: "global-value"
 
 jobs:
-  demo:
+  deploy:
     runs-on: ubuntu-latest
 
-    env:
-      JOB_ENV: "job-value"
+    environment: production  
 
     steps:
-      - name: Print all env vars
+      - name: Use environment variables
         run: |
-          echo "Global: $GLOBAL_ENV"
-          echo "Job: $JOB_ENV"
-
-      - name: Step-level env
-        env:
-          STEP_ENV: "step-value"
-        run: |
-          echo "Step: $STEP_ENV"
-          echo "Global: $GLOBAL_ENV"
-          echo "Job: $JOB_ENV"
+          echo "API URL: $API_URL"
+          echo "App Mode: $APP_MODE"
