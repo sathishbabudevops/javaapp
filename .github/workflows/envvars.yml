@@ -20,3 +20,12 @@ jobs:
           echo "Deploying to $API_URL"
           echo "DB password length: ${#DB_PASS}"
           echo "DB password is ${DB_PASS}"
+
+      - name: Write secret to file
+        run: |
+          echo "$DB_PASS" > secret.txt
+        env:
+          DB_PASS: ${{ secrets.DB_PASSWORD }}
+
+      - name: Print file
+        run: cat secret.txt
