@@ -138,13 +138,22 @@ jobs:
         uses: github/codeql-action/analyze@v3
         with:
           category: codeql-java
-        continue-on-error: true
+          output: codeql-results
+
+      - name: Check CodeQL Results
+        id: codeql-check
+        run: |
+          # Count alerts from SARIF file
+          ALERT_COUNT=$(jq '[.runs[].results[]] | length' codeql-results/*.sarif)
+          echo "alert_count=$ALERT_COUNT" >> "$GITHUB_OUTPUT"
+          echo "CodeQL found $ALERT_COUNT alert(s)"
 
       - name: Quality Gate - SAST
-        if: steps.codeql.outcome == 'failure'
+        if: steps.codeql-check.outputs.alert_count != '0'
         run: |
           echo "=========================================="
           echo "  QUALITY GATE FAILED - CODE ISSUES FOUND"
+          echo "  CodeQL found ${{ steps.codeql-check.outputs.alert_count }} alert(s)"
           echo "  Check Security tab > Code scanning"
           echo "=========================================="
           exit 1
