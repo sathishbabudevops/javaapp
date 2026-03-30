@@ -80,6 +80,7 @@ jobs:
             -Dformats=HTML,JSON,SARIF \
             -DprettyPrint=true \
             -DsuppressionsFile=owasp-suppressions.xml \
+            -DnvdApiKey=${{ secrets.NVD_API_KEY }} \
             -B
         continue-on-error: true
 
