@@ -19,6 +19,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # ── Verify tools are available ──
+      - name: Verify prerequisites
+        run: |
+          echo "=== Java ==="
+          java -version
+          echo ""
+          echo "=== Maven ==="
+          mvn -version
+          echo ""
+          echo "=== Git ==="
+          git --version
+
       # ── Build + Test + JaCoCo ──
       - name: Build and generate coverage
         run: mvn clean verify
