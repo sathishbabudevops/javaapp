@@ -16,7 +16,7 @@ jobs:
           if (Test-Path "$env:GITHUB_WORKSPACE\*") {
             Remove-Item -Recurse -Force "$env:GITHUB_WORKSPACE\*"
           }
-        shell: pwsh
+        shell: powershell
 
       # ── Checkout ──
       - name: Checkout code
@@ -33,7 +33,7 @@ jobs:
           Write-Host ""
           Write-Host "=== Git ==="
           git --version
-        shell: pwsh
+        shell: powershell
 
       # ── Build + Test + JaCoCo ──
       - name: Build and generate coverage
@@ -75,7 +75,7 @@ jobs:
           } else {
             Write-Host "::notice::Coverage is $coverage% - target met!"
           }
-        shell: pwsh
+        shell: powershell
 
       # ── Post coverage summary on PR ──
       - name: JaCoCo PR Comment
