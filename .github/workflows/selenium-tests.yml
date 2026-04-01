@@ -2,8 +2,6 @@ name: Selenium Functional Tests
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
 
 jobs:
   selenium-tests:
